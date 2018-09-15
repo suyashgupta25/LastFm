@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="de.appsfactory.lastfm.ui.home.searchscreen.ItemArtistSearchViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:background="@drawable/list_item_background"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin">
+
+        <ImageView
+            android:id="@+id/imv_artist"
+            android:layout_width="@dimen/list_icon_size"
+            android:layout_height="@dimen/list_icon_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            app:glideProfileImageUri="@{viewModel.url}"/>
+
+        <TextView
+            android:id="@+id/tv_artist_listeners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.listenersNumber}"
+            android:textSize="@dimen/list_item_text_size" />
+
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_toLeftOf="@id/tv_artist_listeners"
+            android:layout_toRightOf="@id/imv_artist"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.name}"
+            android:textSize="@dimen/list_item_text_size" />
+    </RelativeLayout>
+</layout>

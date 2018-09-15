@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">LastFM</string>
+    <string name="navigation_drawer_header_title">LastFM</string>
+
+    <string name="bar_title_my_albums">My Albums</string>
+    <string name="navigation_drawer_header_content_description">Navigation drawer header logo</string>
+
+    <string name="bar_title_top_albums">Top Albums</string>
+    <string name="bar_title_search">Search</string>
+
+    <string name="a11y_album_item_image">Picture of album</string>
+    <string name="album_empty">You don\'t have any Albums</string>
+    <string name="top_albums_empty">No top Albums found</string>
+
+    <string name="album_detail_image_content_description">Image of album</string>
+
+    <string name="menu_item_search">Search</string>
+
+    <string name="search_artist">Search Artist...</string>
+
+    <string name="err_data_else">Error: Executing else block</string>
+    <string name="retry">Retry</string>
+
+    <string name="custom_album_details_artist">Artist:&#032;%1$s</string>
+    <string name="custom_album_details_playcount">Play Count:&#032;%1$d</string>
+
+</resources>
