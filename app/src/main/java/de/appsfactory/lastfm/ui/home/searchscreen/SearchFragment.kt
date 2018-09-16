@@ -72,7 +72,7 @@ class SearchFragment : Fragment(), ListItemClickListener {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding?.rvSearchResults?.layoutManager = linearLayoutManager
 
-        val searchAdapter = SearchAdapter(this)90[]
+        val searchAdapter = SearchAdapter(this)
         binding?.rvSearchResults?.swapAdapter(searchAdapter, true)
         viewModel.artistsList.observe(this, Observer<PagedList<Artist>> { searchAdapter.submitList(it) })
         viewModel.networkState.observe(this, Observer<NetworkState> { searchAdapter.setNetworkState(it) })
