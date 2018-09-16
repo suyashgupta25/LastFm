@@ -4,9 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
 import android.arch.paging.DataSource.Factory
-import de.appsfactory.lastfm.data.albums.LastFmService
-
 import de.appsfactory.lastfm.data.model.Artist
+import de.appsfactory.lastfm.data.webservice.LastFmService
 
 class ArtistsDataSourceFactory(val query: String, private val lastFmService: LastFmService) : Factory<Int, Artist>() {
 

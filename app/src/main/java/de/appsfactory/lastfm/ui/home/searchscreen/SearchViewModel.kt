@@ -3,11 +3,11 @@ package de.appsfactory.lastfm.ui.home.searchscreen
 import android.arch.lifecycle.*
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import de.appsfactory.lastfm.data.NetworkState
-import de.appsfactory.lastfm.data.albums.LastFmService
 import de.appsfactory.lastfm.data.artists.ArtistsDataSource
 import de.appsfactory.lastfm.data.artists.ArtistsDataSourceFactory
 import de.appsfactory.lastfm.data.model.Artist
+import de.appsfactory.lastfm.data.webservice.LastFmService
+import de.appsfactory.lastfm.data.webservice.NetworkState
 import de.appsfactory.lastfm.utils.AppConstants.Companion.EMPTY
 import de.appsfactory.lastfm.utils.AppConstants.Companion.PAGE_SIZE
 import de.appsfactory.lastfm.utils.AppConstants.Companion.PPREFETCH_SIZE

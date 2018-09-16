@@ -1,4 +1,4 @@
-package de.appsfactory.lastfm.data
+package de.appsfactory.lastfm.data.webservice
 
 class NetworkState(val status: Status, val msg: String) {
     companion object {

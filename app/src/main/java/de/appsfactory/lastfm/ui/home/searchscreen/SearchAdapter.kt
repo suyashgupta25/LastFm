@@ -4,8 +4,8 @@ import android.arch.paging.PagedListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import de.appsfactory.lastfm.R
-import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.model.Artist
+import de.appsfactory.lastfm.data.webservice.NetworkState
 import de.appsfactory.lastfm.databinding.ItemArtistSearchBinding
 import de.appsfactory.lastfm.databinding.ItemNetworkStateBinding
 import de.appsfactory.lastfm.ui.common.base.BaseHolder

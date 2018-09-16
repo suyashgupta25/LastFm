@@ -1,4 +1,4 @@
-package de.appsfactory.lastfm.data
+package de.appsfactory.lastfm.data.webservice
 
 enum class Status {
     RUNNING,

@@ -5,6 +5,7 @@ import de.appsfactory.lastfm.data.albums.local.AlbumDao
 import de.appsfactory.lastfm.data.model.Album
 import de.appsfactory.lastfm.data.model.AlbumDetailsResult
 import de.appsfactory.lastfm.data.model.AlbumInfo
+import de.appsfactory.lastfm.data.webservice.LastFmService
 import io.reactivex.Observable
 import javax.inject.Inject
 

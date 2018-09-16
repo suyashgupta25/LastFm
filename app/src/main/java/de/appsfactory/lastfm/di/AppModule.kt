@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import de.appsfactory.lastfm.BaseApp
 import de.appsfactory.lastfm.data.albums.AlbumDataSource
-import de.appsfactory.lastfm.data.albums.LastFmService
 import de.appsfactory.lastfm.data.albums.AlbumSource
 import de.appsfactory.lastfm.data.albums.local.AlbumDao
 import de.appsfactory.lastfm.data.albums.local.AppDatabase
+import de.appsfactory.lastfm.data.webservice.LastFmService
 import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class, ViewModelModule::class])

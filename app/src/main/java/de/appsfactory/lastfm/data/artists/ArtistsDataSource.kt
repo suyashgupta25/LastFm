@@ -4,12 +4,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
 import android.util.Log
-import de.appsfactory.lastfm.data.NetworkState
-import de.appsfactory.lastfm.data.Status
-import de.appsfactory.lastfm.data.albums.LastFmService
 import de.appsfactory.lastfm.data.model.Artist
 import de.appsfactory.lastfm.data.model.ArtistSearchResults
 import de.appsfactory.lastfm.data.model.TopArtistsSearchResults
+import de.appsfactory.lastfm.data.webservice.LastFmService
+import de.appsfactory.lastfm.data.webservice.NetworkState
+import de.appsfactory.lastfm.data.webservice.Status
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -105,7 +105,8 @@ class ArtistsDataSource internal constructor(private val query: String, private 
 
     private fun postNetworkError(errorMessage: String?) {
         Log.e(TAG + ": API CALL", errorMessage)
-        mNetworkState.postValue(NetworkState(Status.FAILED, errorMessage ?: "Unknown error"))
+        mNetworkState.postValue(NetworkState(Status.FAILED, errorMessage
+                ?: "Unknown error"))
     }
 
     companion object {

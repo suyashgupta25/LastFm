@@ -2,8 +2,8 @@ package de.appsfactory.lastfm.ui.common.viewmodels
 
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import de.appsfactory.lastfm.data.NetworkState
-import de.appsfactory.lastfm.data.Status
+import de.appsfactory.lastfm.data.webservice.NetworkState
+import de.appsfactory.lastfm.data.webservice.Status
 import de.appsfactory.lastfm.utils.AppConstants.Companion.EMPTY
 
 class ItemNetworkStateViewModel(networkState: NetworkState) {

@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager
 /**
  * Created by suyashg
  *
- * Utiliy class for adding, replacing fragments
+ * Utiliy class for activity fragments operations
  */
     @Suppress("UNCHECKED_CAST")
     fun <T> FragmentActivity.findFragmentById(@IdRes id: Int): T = supportFragmentManager.findFragmentById(id) as T

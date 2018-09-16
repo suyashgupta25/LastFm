@@ -1,4 +1,4 @@
-package de.appsfactory.lastfm.data.albums
+package de.appsfactory.lastfm.data.webservice
 
 import de.appsfactory.lastfm.data.model.AlbumDetailsResult
 import de.appsfactory.lastfm.data.model.ArtistSearchResults

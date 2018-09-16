@@ -4,8 +4,8 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import de.appsfactory.lastfm.BaseApp
-import de.appsfactory.lastfm.data.Endpoints
-import de.appsfactory.lastfm.data.albums.LastFmService
+import de.appsfactory.lastfm.BuildConfig
+import de.appsfactory.lastfm.data.webservice.LastFmService
 import de.appsfactory.lastfm.utils.AppConstants.Companion.CONNECTION_TIMEOUT
 import de.appsfactory.lastfm.utils.AppConstants.Companion.READ_TIMEOUT
 import de.appsfactory.lastfm.utils.AppConstants.Companion.WRITE_TIMEOUT
@@ -48,7 +48,7 @@ open class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit = Retrofit.Builder()
-            .baseUrl(Endpoints.SERVER_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

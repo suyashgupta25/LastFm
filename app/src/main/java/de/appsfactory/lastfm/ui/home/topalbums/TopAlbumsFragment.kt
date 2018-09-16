@@ -14,8 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import de.appsfactory.lastfm.R
-import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.model.Album
+import de.appsfactory.lastfm.data.webservice.NetworkState
 import de.appsfactory.lastfm.databinding.FragmentTopAlbumsBinding
 import de.appsfactory.lastfm.ui.common.base.BaseActivity
 import de.appsfactory.lastfm.ui.common.listeners.ListItemClickListener

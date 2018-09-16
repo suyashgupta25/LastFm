@@ -3,11 +3,11 @@ package de.appsfactory.lastfm.ui.home.topalbums
 import android.arch.lifecycle.*
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import de.appsfactory.lastfm.data.NetworkState
-import de.appsfactory.lastfm.data.albums.LastFmService
 import de.appsfactory.lastfm.data.albums.TopAlbumsDataSource
 import de.appsfactory.lastfm.data.albums.TopAlbumsDataSourceFactory
 import de.appsfactory.lastfm.data.model.Album
+import de.appsfactory.lastfm.data.webservice.LastFmService
+import de.appsfactory.lastfm.data.webservice.NetworkState
 import de.appsfactory.lastfm.utils.AppConstants
 import de.appsfactory.lastfm.utils.AppConstants.Companion.PAGE_SIZE
 import de.appsfactory.lastfm.utils.AppConstants.Companion.PPREFETCH_SIZE
