@@ -4,7 +4,6 @@ class AppConstants {
 
     companion object {
         const val EMPTY = ""
-        const val ZERO = 0
 
         //Network settings
         const val DATABASE_NAME = "lastfm-db"
@@ -14,6 +13,8 @@ class AppConstants {
         const val READ_TIMEOUT = 30L
         const val WRITE_TIMEOUT = 10L
 
-        const val REVIEW_GRID_SPAN = 2//two columns
+        //Paged List adapter
+        const val PAGE_SIZE = 16
+        const val PPREFETCH_SIZE = 16
     }
 }

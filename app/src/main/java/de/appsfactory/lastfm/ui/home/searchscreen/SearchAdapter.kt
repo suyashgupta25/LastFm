@@ -2,11 +2,7 @@ package de.appsfactory.lastfm.ui.home.searchscreen
 
 import android.arch.paging.PagedListAdapter
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import de.appsfactory.lastfm.R
 import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.model.Artist
@@ -22,13 +18,12 @@ class SearchAdapter(val itemClickListener: ListItemClickListener) : PagedListAda
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view: View
         val viewHolder: BaseHolder
 
         when (viewType) {
             R.layout.item_artist_search -> {
                 val binding = ItemArtistSearchBinding.inflate(layoutInflater, parent, false)
-                return ArtistItemViewHolder(binding, itemClickListener)
+                viewHolder = ArtistItemViewHolder(binding, itemClickListener)
             }
             R.layout.item_network_state -> {
                 val binding = ItemNetworkStateBinding.inflate(layoutInflater, parent, false)
@@ -36,7 +31,6 @@ class SearchAdapter(val itemClickListener: ListItemClickListener) : PagedListAda
             }
             else -> throw IllegalArgumentException("unknown view type")
         }
-
         return viewHolder
     }
 
@@ -90,7 +84,7 @@ class SearchAdapter(val itemClickListener: ListItemClickListener) : PagedListAda
 
         override fun onBind(position: Int) {
             val item = this@SearchAdapter.getItem(position)!!
-            val itemViewModel = ItemArtistSearchViewModel(item)
+            val itemViewModel = SearchArtistItemViewModel(item)
             binding.viewModel = itemViewModel
         }
     }

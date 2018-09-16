@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/vertical_margin"
-    android:background="@drawable/list_item_background"
-    android:paddingLeft="@dimen/horizontal_margin"
-    android:paddingTop="@dimen/vertical_margin"
-    android:paddingRight="@dimen/horizontal_margin"
-    android:paddingBottom="@dimen/vertical_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imv_top_album"
-        android:layout_width="@dimen/list_icon_size"
-        android:layout_height="@dimen/list_icon_size"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_album_play_count"
-        android:layout_width="wrap_content"
+        <variable
+            name="viewModel"
+            type="de.appsfactory.lastfm.ui.home.topalbums.TopAlbumsItemViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/horizontal_margin"
-        android:gravity="center_vertical"
-        android:text="1549"
-        android:textSize="@dimen/list_item_text_size" />
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:background="@drawable/list_item_background"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin">
 
-    <TextView
-        android:id="@+id/tv_album_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_toLeftOf="@id/tv_album_play_count"
-        android:layout_toRightOf="@id/imv_top_album"
-        android:gravity="center_vertical"
-        android:text="George Michael"
-        android:textSize="@dimen/list_item_text_size" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/imv_top_album"
+            android:layout_width="@dimen/list_icon_size"
+            android:layout_height="@dimen/list_icon_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            app:glideProfileImageUri="@{viewModel.url}" />
+
+        <TextView
+            android:id="@+id/tv_album_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.playcount}"
+            android:textSize="@dimen/list_item_text_size" />
+
+        <TextView
+            android:id="@+id/tv_album_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_toLeftOf="@id/tv_album_play_count"
+            android:layout_toRightOf="@id/imv_top_album"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.name}"
+            android:textSize="@dimen/list_item_text_size" />
+    </RelativeLayout>
+</layout>

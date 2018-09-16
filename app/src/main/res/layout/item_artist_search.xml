@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="de.appsfactory.lastfm.ui.home.searchscreen.ItemArtistSearchViewModel" />
+            type="de.appsfactory.lastfm.ui.home.searchscreen.SearchArtistItemViewModel" />
 
     </data>
 

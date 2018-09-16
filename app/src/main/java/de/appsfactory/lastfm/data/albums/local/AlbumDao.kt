@@ -3,7 +3,6 @@ package de.appsfactory.lastfm.data.albums.local
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import de.appsfactory.lastfm.data.model.Album
-import io.reactivex.Observable
 
 
 /**
@@ -15,8 +14,8 @@ interface AlbumDao {
     @Query("SELECT * FROM myalbums")
     fun getAlbums(): LiveData<List<Album>>
 
-    @Query("SELECT * FROM myalbums WHERE name = :name")
-    fun getAlbumByName(name: String): LiveData<Album>
+    @Query("SELECT * FROM myalbums WHERE name LIKE :name LIMIT 1")
+    fun getAlbumByName(name: String): Album?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAlbum(album: Album)

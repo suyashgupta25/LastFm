@@ -3,15 +3,14 @@ package de.appsfactory.lastfm.ui.home.topalbums
 import android.arch.lifecycle.*
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import android.databinding.ObservableBoolean
 import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.albums.LastFmService
 import de.appsfactory.lastfm.data.albums.TopAlbumsDataSource
 import de.appsfactory.lastfm.data.albums.TopAlbumsDataSourceFactory
-import de.appsfactory.lastfm.data.albums.local.AlbumDao
 import de.appsfactory.lastfm.data.model.Album
 import de.appsfactory.lastfm.utils.AppConstants
-import de.appsfactory.lastfm.utils.runOnIoThread
+import de.appsfactory.lastfm.utils.AppConstants.Companion.PAGE_SIZE
+import de.appsfactory.lastfm.utils.AppConstants.Companion.PPREFETCH_SIZE
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -42,28 +41,14 @@ class TopAlbumsViewModel @Inject constructor(private val webService: LastFmServi
 
         topAlbumsList = Transformations.switchMap(dataSourceFactoryLiveData) { dataSourceFactory ->
             val pagedListConfig = PagedList.Config.Builder().setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(TopAlbumsViewModel.PAGE_SIZE)
-                    .setPageSize(TopAlbumsViewModel.PAGE_SIZE)
-                    .setPrefetchDistance(16)
+                    .setInitialLoadSizeHint(PAGE_SIZE)
+                    .setPageSize(PAGE_SIZE)
+                    .setPrefetchDistance(PPREFETCH_SIZE)
                     .build()
 
             LivePagedListBuilder(dataSourceFactory, pagedListConfig)
                     .setFetchExecutor(executor)
                     .build()
         }
-    }
-
-    fun getArtistName(position:Int) : String {
-        return topAlbumsList.value!![position]!!.name;
-    }
-
-    fun insertAlbums() {
-        runOnIoThread {
-            //albumDao.insertAlbums(topAlbumsList.value!!.toList())
-        }
-    }
-
-    companion object {
-        private val PAGE_SIZE = 16
     }
 }

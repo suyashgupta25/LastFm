@@ -13,13 +13,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import de.appsfactory.lastfm.R
 import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.model.Artist
 import de.appsfactory.lastfm.databinding.FragmentSearchBinding
+import de.appsfactory.lastfm.ui.common.base.BaseActivity
 import de.appsfactory.lastfm.ui.common.listeners.ListItemClickListener
+import de.appsfactory.lastfm.ui.home.topalbums.TopAlbumsFragment
+import de.appsfactory.lastfm.utils.ext.addFragment
+import de.appsfactory.lastfm.utils.ext.hideKeyboard
 import javax.inject.Inject
 
 
@@ -37,6 +40,11 @@ class SearchFragment : Fragment(), ListItemClickListener {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_search, container, false)
 
@@ -47,7 +55,6 @@ class SearchFragment : Fragment(), ListItemClickListener {
 
     private fun initBinding(view: View) {
         val binding = DataBindingUtil.bind<FragmentSearchBinding>(view)
-        lifecycle.addObserver(viewModel)
         binding.let {
             it!!.viewModel = viewModel
             it.setLifecycleOwner(this)
@@ -65,17 +72,20 @@ class SearchFragment : Fragment(), ListItemClickListener {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding?.rvSearchResults?.layoutManager = linearLayoutManager
 
-        val searchAdapter = SearchAdapter(this)
+        val searchAdapter = SearchAdapter(this)90[]
         binding?.rvSearchResults?.swapAdapter(searchAdapter, true)
         viewModel.artistsList.observe(this, Observer<PagedList<Artist>> { searchAdapter.submitList(it) })
         viewModel.networkState.observe(this, Observer<NetworkState> { searchAdapter.setNetworkState(it) })
     }
 
     override fun onClick(view: View, position: Int) {
-        Log.d("TAG", "onClick")
-        val direction =
-                SearchFragmentDirections.ActionSearchFragmentToTopAlbumFragment(viewModel.getArtistName(position))
-        findNavController().navigate(direction)
+        Log.d("TAG", "onClick position=" + position)
+        val binding = this.view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
+        activity?.hideKeyboard(activity, binding?.etSearchArtist)
+        val bundle = Bundle()
+        bundle.putString(getString(R.string.param_fragment_search_bundle),
+                viewModel.getArtistName(position))
+        activity?.addFragment((activity as BaseActivity).fragmentContainerId, ::TopAlbumsFragment, bundle)
     }
 
     override fun onRetryClick(position: Int) {
@@ -83,7 +93,6 @@ class SearchFragment : Fragment(), ListItemClickListener {
     }
 
 }
-
 //        val binding = view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
 //        RxTextView
 //                .textChangeEvents(binding!!.etSearchArtist)

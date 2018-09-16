@@ -21,7 +21,7 @@ class ImageDataConverter {
 
     @TypeConverter
     fun toImageURLList(value: String?): List<ImageURL> {
-        if (value == null || value.equals(EMPTY)) {
+        if (value.isNullOrEmpty()) {
             return emptyList()
         }
         val moshi = Moshi.Builder().build()

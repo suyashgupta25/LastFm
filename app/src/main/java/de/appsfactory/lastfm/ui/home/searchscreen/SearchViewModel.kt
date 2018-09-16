@@ -9,6 +9,8 @@ import de.appsfactory.lastfm.data.artists.ArtistsDataSource
 import de.appsfactory.lastfm.data.artists.ArtistsDataSourceFactory
 import de.appsfactory.lastfm.data.model.Artist
 import de.appsfactory.lastfm.utils.AppConstants.Companion.EMPTY
+import de.appsfactory.lastfm.utils.AppConstants.Companion.PAGE_SIZE
+import de.appsfactory.lastfm.utils.AppConstants.Companion.PPREFETCH_SIZE
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class SearchViewModel @Inject constructor(private val webService: LastFmService)
     private val executor: ExecutorService = Executors.newFixedThreadPool(5)
 
     val artistsList: LiveData<PagedList<Artist>>
-    private val queryLiveData: MutableLiveData<String> = MutableLiveData()
+    val queryLiveData: MutableLiveData<String> = MutableLiveData()
     private val artistsDataSourceFactoryLiveData: LiveData<ArtistsDataSourceFactory>
     private val artistsDataSourceLiveData: LiveData<ArtistsDataSource>
     val networkState: LiveData<NetworkState>
@@ -40,7 +42,7 @@ class SearchViewModel @Inject constructor(private val webService: LastFmService)
             val pagedListConfig = PagedList.Config.Builder().setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(PAGE_SIZE)
                     .setPageSize(PAGE_SIZE)
-                    .setPrefetchDistance(16)
+                    .setPrefetchDistance(PPREFETCH_SIZE)
                     .build()
 
             LivePagedListBuilder(dataSourceFactory, pagedListConfig)
@@ -57,7 +59,4 @@ class SearchViewModel @Inject constructor(private val webService: LastFmService)
         return artistsList.value!![position]!!.name;
     }
 
-    companion object {
-        private val PAGE_SIZE = 16
-    }
 }

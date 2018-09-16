@@ -1,6 +1,5 @@
 package de.appsfactory.lastfm.data.albums.local
 
-import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase

@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
+import android.util.Log
 import de.appsfactory.lastfm.data.albums.AlbumSource
 import de.appsfactory.lastfm.data.model.Album
 import de.appsfactory.lastfm.data.model.AlbumInfo
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class AlbumDetailsViewModel @Inject constructor(private val albumSource: AlbumSource) :ViewModel(), LifecycleObserver {
+class AlbumDetailsViewModel @Inject constructor(private val albumSource: AlbumSource) : ViewModel(), LifecycleObserver {
 
     // Disposable
     private val disposable: CompositeDisposable = CompositeDisposable()
@@ -30,46 +31,60 @@ class AlbumDetailsViewModel @Inject constructor(private val albumSource: AlbumSo
         isAlbumFavourite(album.get()!!.name)
     }
 
-    private fun getAlbumInfo(albumName:String, artistName:String?) {
+    private fun getAlbumInfo(albumName: String, artistName: String?) {
         disposable.add(albumSource.getAlbumInfo(albumName, artistName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(defaultErrorHandler())
-                .subscribe { item ->
-                    albumInfo.postValue(item)
-                }
+                .subscribe({
+                    albumInfo.postValue(it)
+                }, {
+                    Log.e("Error:", it.message)
+                }, {
+                })
         )
     }
 
-    private fun isAlbumFavourite(albumName:String) {
+    private fun isAlbumFavourite(albumName: String) {
         disposable.add(albumSource.isAlbumFavourite(album.get()!!.name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(defaultErrorHandler())
-                .subscribe { item ->
-                    isFav.set(item)
-                }
+                .subscribe({
+                    isFav.set(it)
+                }, {
+                    Log.e("Error:", it.message)
+                }, {
+                })
         )
     }
 
     fun favClicked() {
-        if(isFav.get()) {
+        if (isFav.get()) {
             disposable.add(albumSource.removeFavouriteAlbum(album.get()!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(defaultErrorHandler())
-                    .subscribe { item ->
-                        isFav.set(item)
-                    }
+                    .subscribe({
+                        isFav.set(it)
+                    }, {
+                        Log.e("Error:", it.message)
+                    }, {
+                        Log.e("favClicked:", "completed")
+                    })
             )
         } else {
             disposable.add(albumSource.addFavouriteAlbum(album.get()!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(defaultErrorHandler())
-                    .subscribe { item ->
-                        isFav.set(true)
-                    }
+                    .subscribe({
+                        isFav.set(it)
+                    }, {
+                        Log.e("Error:", it.message)
+                    }, {
+                        Log.e("favClicked:", "completed")
+                    })
             )
         }
     }

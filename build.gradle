@@ -46,6 +46,7 @@ ext {
 
     okhttp = '3.10.0'
     retrofit = '2.3.0'
+    interceptor = '3.9.1'
 
     moshi = '1.5.0'
     converter_moshi= '2.3.0'
@@ -57,6 +58,7 @@ ext {
     rxandroidVersion = '2.0.2'
     rxkotlin = '2.2.0'
     roomVersion = '1.1.1'
+    debugdb = '1.0.4'
     workVersion = '1.0.0-alpha08'
     navigationVersion = '1.0.0-alpha05'
 

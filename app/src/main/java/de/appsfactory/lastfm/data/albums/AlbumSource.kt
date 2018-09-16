@@ -2,7 +2,6 @@ package de.appsfactory.lastfm.data.albums
 
 import android.arch.lifecycle.LiveData
 import de.appsfactory.lastfm.data.model.Album
-import de.appsfactory.lastfm.data.model.AlbumDetailsResult
 import de.appsfactory.lastfm.data.model.AlbumInfo
 import io.reactivex.Observable
 

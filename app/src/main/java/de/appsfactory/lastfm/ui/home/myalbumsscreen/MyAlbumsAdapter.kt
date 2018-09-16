@@ -3,34 +3,25 @@ package de.appsfactory.lastfm.ui.home.myalbumsscreen
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import de.appsfactory.lastfm.R
 import de.appsfactory.lastfm.data.model.Album
-import de.appsfactory.lastfm.data.model.ImageURL
+import de.appsfactory.lastfm.databinding.ItemMyAlbumBinding
+import de.appsfactory.lastfm.ui.common.base.BaseHolder
 import de.appsfactory.lastfm.ui.common.listeners.ListItemClickListener
 
-class MyAlbumsAdapter(val itemClickListener: ListItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyAlbumsAdapter(val itemClickListener: ListItemClickListener) : RecyclerView.Adapter<BaseHolder>() {
 
     var items = mutableListOf<Album>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view: View
-        val viewHolder: RecyclerView.ViewHolder
-
-        view = layoutInflater.inflate(R.layout.item_my_album, parent, false)
-        viewHolder = MyAlbumItemViewHolder(view, itemClickListener)
-
+        val binding = ItemMyAlbumBinding.inflate(layoutInflater, parent, false)
+        val viewHolder = MyAlbumItemViewHolder(binding, itemClickListener)
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as MyAlbumItemViewHolder).bindTo(items[position])
+    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+        (holder as MyAlbumItemViewHolder).onBind(position)
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +29,7 @@ class MyAlbumsAdapter(val itemClickListener: ListItemClickListener) : RecyclerVi
     }
 
     fun setData(newData: List<Album>) {
-        val diffCallback = AlbumListDiffCallback(items , newData)
+        val diffCallback = AlbumListDiffCallback(items, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
         items.clear()
@@ -46,30 +37,21 @@ class MyAlbumsAdapter(val itemClickListener: ListItemClickListener) : RecyclerVi
         diffResult.dispatchUpdatesTo(this);
     }
 
-    internal class MyAlbumItemViewHolder(itemView: View, itemClickListener: ListItemClickListener) : RecyclerView.ViewHolder(itemView) {
-        private val name: TextView = itemView.findViewById(R.id.tv_my_album_title)
-        private val artist: TextView = itemView.findViewById(R.id.tv_my_album_artist)
-        private val icon: ImageView = itemView.findViewById(R.id.imv_my_album)
+    inner class MyAlbumItemViewHolder(binding: ItemMyAlbumBinding, itemClickListener: ListItemClickListener) : BaseHolder(binding.root) {
+
+        private val binding: ItemMyAlbumBinding
 
         init {
             itemView.setOnClickListener {
                 itemClickListener.onClick(it, adapterPosition)
             }
+            this.binding = binding
         }
 
-        fun bindTo(album: Album) {
-            name.text = album.name
-            artist.text = album.artist?.name
-            val context = icon.context
-
-            val uri = album.getImageURL(ImageURL.Size.LARGE).url
-            val transforms = RequestOptions()
-                    .placeholder(R.drawable.ic_placeholder)
-                    .error(R.drawable.ic_placeholder)
-            Glide.with(context)
-                    .load(uri)
-                    .apply(transforms)
-                    .into(icon)
+        override fun onBind(position: Int) {
+            val item = this@MyAlbumsAdapter.items[position]
+            val myAlbumItemViewModel = MyAlbumItemViewModel(item)
+            binding.viewModel = myAlbumItemViewModel
         }
 
     }

@@ -12,14 +12,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import de.appsfactory.lastfm.R
 import de.appsfactory.lastfm.data.NetworkState
 import de.appsfactory.lastfm.data.model.Album
 import de.appsfactory.lastfm.databinding.FragmentTopAlbumsBinding
+import de.appsfactory.lastfm.ui.common.base.BaseActivity
 import de.appsfactory.lastfm.ui.common.listeners.ListItemClickListener
-import de.appsfactory.lastfm.ui.home.myalbumsscreen.MyAlbumsFragmentDirections
+import de.appsfactory.lastfm.ui.home.albumdetails.AlbumDetailsFragment
+import de.appsfactory.lastfm.utils.ext.addFragment
 import javax.inject.Inject
 
 class TopAlbumsFragment : Fragment(), ListItemClickListener {
@@ -36,6 +37,11 @@ class TopAlbumsFragment : Fragment(), ListItemClickListener {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_top_albums, container, false)
 
@@ -46,7 +52,6 @@ class TopAlbumsFragment : Fragment(), ListItemClickListener {
 
     private fun initBinding(view: View) {
         val binding = DataBindingUtil.bind<FragmentTopAlbumsBinding>(view)
-        lifecycle.addObserver(viewModel)
         binding.let {
             it!!.viewModel = viewModel
             it.setLifecycleOwner(this)
@@ -64,23 +69,27 @@ class TopAlbumsFragment : Fragment(), ListItemClickListener {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding?.rvTopAlbums?.layoutManager = linearLayoutManager
 
-        val topAlbumsAdapter = TopAlbumsAdapter(activity!!, this)
+        val topAlbumsAdapter = TopAlbumsAdapter(this)
         binding?.rvTopAlbums?.swapAdapter(topAlbumsAdapter, true)
         viewModel.topAlbumsList.observe(this, Observer<PagedList<Album>> { topAlbumsAdapter.submitList(it) })
         viewModel.networkState.observe(this, Observer<NetworkState> { topAlbumsAdapter.setNetworkState(it) })
-        viewModel.queryLiveData.value = TopAlbumsFragmentArgs.fromBundle(arguments).artistName
+        executeQuery()
+    }
+
+    private fun executeQuery() {
+        val artistName = arguments?.getString(getString(R.string.param_fragment_search_bundle))
+        viewModel.queryLiveData.value = artistName
     }
 
     override fun onClick(view: View, position: Int) {
         val album = viewModel.topAlbumsList.value?.get(position)
-        album?.let {
-            val direction =
-                    TopAlbumsFragmentDirections.ActionTopAlbumsListFragmentToDetailsFragment(it)
-            findNavController().navigate(direction)
-        }
+        val bundle = Bundle()
+        bundle.putParcelable(getString(R.string.param_fragment_details_bundle),
+                album)
+        activity?.addFragment((activity as BaseActivity).fragmentContainerId, ::AlbumDetailsFragment, bundle)
     }
 
     override fun onRetryClick(position: Int) {
-
+        executeQuery()
     }
 }

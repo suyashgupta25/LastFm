@@ -70,7 +70,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptor"
 
     // JSON Parsing
     implementation "se.ansman.kotshi:api:$rootProject.kotshi"
@@ -85,17 +85,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxkotlin"
-    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1'
 
-    // Worker and Room
+    // Room
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
 
-    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+    debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugdb"
 
     testImplementation "junit:junit:$rootProject.junitVersion"
 

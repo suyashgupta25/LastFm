@@ -7,8 +7,6 @@
 
         <import type="de.appsfactory.lastfm.data.model.ImageURL.Size" />
 
-        <import type="de.appsfactory.lastfm.data.model.AlbumWiki" />
-
         <variable
             name="viewModel"
             type="de.appsfactory.lastfm.ui.home.albumdetails.AlbumDetailsViewModel" />
@@ -17,8 +15,9 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        tools:context="com.google.samples.apps.sunflower.GardenActivity"
+        tools:context="de.appsfactory.lastfm.ui.home.HomeActivity"
         tools:ignore="MergeRootFrame">
 
         <android.support.design.widget.AppBarLayout
@@ -74,9 +73,9 @@
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_small"
                     android:text="@{@string/custom_album_details_artist(viewModel.album.artist.name)}"
                     android:textIsSelectable="true"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +87,9 @@
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginEnd="@dimen/margin_small"
                     android:text="@{@string/custom_album_details_playcount(viewModel.album.playcount)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,9 +100,9 @@
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginEnd="@dimen/margin_small"
                     android:text="@{viewModel.albumInfo.wiki.content}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -126,9 +125,9 @@
             app:borderWidth="0dp"
             app:elevation="6dp"
             app:fabSize="normal"
+            app:favbuttonImage="@{viewModel.isFav}"
             app:layout_anchor="@+id/nsv_album_detail"
-            app:layout_anchorGravity="bottom|right|end"
-            app:favbuttonImage="@{viewModel.isFav}" />
+            app:layout_anchorGravity="bottom|right|end" />
 
     </android.support.design.widget.CoordinatorLayout>
 

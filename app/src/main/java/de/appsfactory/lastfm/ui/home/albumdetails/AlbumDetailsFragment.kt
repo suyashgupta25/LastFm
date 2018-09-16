@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import de.appsfactory.lastfm.R
+import de.appsfactory.lastfm.data.model.Album
 import de.appsfactory.lastfm.databinding.FragmentAlbumDetailsBinding
 import javax.inject.Inject
 
@@ -28,6 +29,11 @@ class AlbumDetailsFragment : Fragment() {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_album_details, container, false)
 
@@ -38,7 +44,6 @@ class AlbumDetailsFragment : Fragment() {
 
     private fun initBinding(view: View) {
         val binding = DataBindingUtil.bind<FragmentAlbumDetailsBinding>(view)
-        lifecycle.addObserver(viewModel)
         binding.let {
             it!!.viewModel = viewModel
             it.setLifecycleOwner(this)
@@ -47,6 +52,8 @@ class AlbumDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.prepareData(AlbumDetailsFragmentArgs.fromBundle(arguments).album)
+        val album = arguments?.getParcelable<Album>(getString(R.string.param_fragment_details_bundle))
+        viewModel.prepareData(album!!)
     }
+
 }

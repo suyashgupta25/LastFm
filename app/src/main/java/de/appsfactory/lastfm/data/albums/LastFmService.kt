@@ -1,8 +1,8 @@
 package de.appsfactory.lastfm.data.albums
 
 import de.appsfactory.lastfm.data.model.AlbumDetailsResult
-import de.appsfactory.lastfm.data.model.TopAlbumResults
 import de.appsfactory.lastfm.data.model.ArtistSearchResults
+import de.appsfactory.lastfm.data.model.TopAlbumResults
 import de.appsfactory.lastfm.data.model.TopArtistsSearchResults
 import io.reactivex.Observable
 import retrofit2.Call
