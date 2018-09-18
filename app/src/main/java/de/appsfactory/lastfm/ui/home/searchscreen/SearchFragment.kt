@@ -8,7 +8,6 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -40,11 +39,6 @@ class SearchFragment : Fragment(), ListItemClickListener {
         super.onAttach(context)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(viewModel)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_search, container, false)
 
@@ -64,13 +58,18 @@ class SearchFragment : Fragment(), ListItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initViews()
+        addObservers()
+    }
+
+    private fun addObservers() {
+        val binding = view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
+        viewModel.queryLiveData.observe(this, Observer {
+            activity?.hideKeyboard(activity, binding?.etSearchArtist)
+        })
     }
 
     private fun initViews() {
         val binding = view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        binding?.rvSearchResults?.layoutManager = linearLayoutManager
 
         val searchAdapter = SearchAdapter(this)
         binding?.rvSearchResults?.swapAdapter(searchAdapter, true)
@@ -79,7 +78,7 @@ class SearchFragment : Fragment(), ListItemClickListener {
     }
 
     override fun onClick(view: View, position: Int) {
-        Log.d("TAG", "onClick position=" + position)
+        Log.d(TAG, "onClick position=" + position)
         val binding = this.view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
         activity?.hideKeyboard(activity, binding?.etSearchArtist)
         val bundle = Bundle()
@@ -89,26 +88,12 @@ class SearchFragment : Fragment(), ListItemClickListener {
     }
 
     override fun onRetryClick(position: Int) {
+        val binding = view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
+        viewModel.queryLiveData.value = binding?.etSearchArtist?.text.toString()
+    }
 
+    companion object {
+        private val TAG = SearchFragment::class.java.getSimpleName()
     }
 
 }
-//        val binding = view?.let { DataBindingUtil.bind<FragmentSearchBinding>(it) }
-//        RxTextView
-//                .textChangeEvents(binding!!.etSearchArtist)
-//                .debounce(350, TimeUnit.MILLISECONDS)
-//                .distinctUntilChanged()
-//                .filter(Predicate {
-//                    val searchTerm = it.text().toString()
-//                     searchTerm.length > 3 || searchTerm.length == 0
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe{
-//                    val currentText = it.text().toString()
-//                    if (currentText.length == 0) {
-//                        //mainPresenter.loadCachedFoods();
-//                    } else {
-//                        //cachePreviousFoods();
-//                        //mainPresenter.searchFood(currentText);
-//                    }
-//                }

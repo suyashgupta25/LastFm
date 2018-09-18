@@ -9,6 +9,7 @@ import de.appsfactory.lastfm.data.model.TopAlbumResults
 import de.appsfactory.lastfm.data.webservice.LastFmService
 import de.appsfactory.lastfm.data.webservice.NetworkState
 import de.appsfactory.lastfm.data.webservice.Status
+import de.appsfactory.lastfm.utils.AppConstants.Companion.WS_SUCCESS_CODE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,7 +57,7 @@ class TopAlbumsDataSource internal constructor(private val queryParam: String, p
                 pageSize,
                 LastFmService.API_KEY).enqueue(object : Callback<TopAlbumResults> {
             override fun onResponse(call: Call<TopAlbumResults>, response: Response<TopAlbumResults>) {
-                if (response.isSuccessful && response.code() == 200) {
+                if (response.isSuccessful && response.code() == WS_SUCCESS_CODE) {
                     val topalbumsResponse = response.body()?.topalbums?.albums
                     val topalbums = ArrayList<Album>()
                     if (topalbumsResponse != null) topalbums.addAll(topalbumsResponse)
@@ -78,7 +79,7 @@ class TopAlbumsDataSource internal constructor(private val queryParam: String, p
     }
 
     private fun postNetworkError(errorMessage: String?) {
-        Log.e(TAG + ": API CALL", errorMessage)
+        Log.e(TAG, errorMessage)
         mNetworkState.postValue(NetworkState(Status.FAILED, errorMessage
                 ?: "Unknown error"))
     }

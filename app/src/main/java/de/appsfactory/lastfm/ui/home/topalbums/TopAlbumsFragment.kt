@@ -8,7 +8,6 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,11 +36,6 @@ class TopAlbumsFragment : Fragment(), ListItemClickListener {
         super.onAttach(context)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(viewModel)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_top_albums, container, false)
 
@@ -65,9 +59,6 @@ class TopAlbumsFragment : Fragment(), ListItemClickListener {
 
     private fun initViews() {
         val binding = view?.let { DataBindingUtil.bind<FragmentTopAlbumsBinding>(it) }
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        binding?.rvTopAlbums?.layoutManager = linearLayoutManager
 
         val topAlbumsAdapter = TopAlbumsAdapter(this)
         binding?.rvTopAlbums?.swapAdapter(topAlbumsAdapter, true)

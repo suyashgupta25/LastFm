@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -50,9 +49,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlin_version"
 
     // Arch Lifecycle
-    implementation "androidx.core:core-ktx:$rootProject.ktx_core"
+    //implementation "androidx.core:core-ktx:$rootProject.ktx_core"
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    implementation "android.arch.lifecycle:reactivestreams:$rootProject.lifecycle"
     implementation 'android.arch.paging:runtime:1.0.0'
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
 
@@ -88,7 +86,6 @@ dependencies {
 
     // Room
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
 
     debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugdb"
@@ -104,5 +101,10 @@ dependencies {
     })
     androidTestImplementation ("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion") {
         exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$rootProject.espressoContrib") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
     }
 }

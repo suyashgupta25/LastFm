@@ -16,5 +16,7 @@ class AppConstants {
         //Paged List adapter
         const val PAGE_SIZE = 16
         const val PPREFETCH_SIZE = 16
+
+        const val WS_SUCCESS_CODE = 200
     }
 }

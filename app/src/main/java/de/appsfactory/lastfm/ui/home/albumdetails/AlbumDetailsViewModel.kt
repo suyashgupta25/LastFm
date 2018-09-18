@@ -1,6 +1,5 @@
 package de.appsfactory.lastfm.ui.home.albumdetails
 
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
@@ -16,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class AlbumDetailsViewModel @Inject constructor(private val albumSource: AlbumSource) : ViewModel(), LifecycleObserver {
+class AlbumDetailsViewModel @Inject constructor(private val albumSource: AlbumSource) : ViewModel() {
 
     // Disposable
     private val disposable: CompositeDisposable = CompositeDisposable()
