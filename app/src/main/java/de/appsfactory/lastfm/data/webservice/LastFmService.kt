@@ -42,7 +42,7 @@ interface LastFmService {
     ): Observable<AlbumDetailsResult>
 
     companion object {
-        val API_KEY = "f761ead25660962a1d09b9478a4b7cf6"
+        val API_KEY = ""
     }
 
 }
